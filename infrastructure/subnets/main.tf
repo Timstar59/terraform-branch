@@ -14,7 +14,7 @@ resource "aws_route_table_association" "a" {
 
 resource "aws_network_interface" "web-server-nic" {
   subnet_id       = aws_subnet.subnet-1.id
-  private_ips     = ["10.0.1.50"]
+  private_ips     = var.net_private_ips
   security_groups = [var.sec_group_id]
 }
 resource "aws_eip" "one" {
