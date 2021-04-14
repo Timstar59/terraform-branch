@@ -1,9 +1,9 @@
-output "server_private_ip" {
-  value = aws_instance.web-server-instance.private_ip
+output "prod_ip" {
+  value = aws_instance.docker_instance.public_ip[0]
 }
-output "server_public_ip" {
-  value = aws_instance.web-server-instance.public_ip
+output "test_ip" {
+  value = aws_instance.docker_instance.public_ip[1]
 }
-output "server_id" {
-  value = aws_instance.web-server-instance.id
+output "jenk_ip" {
+  value = aws_instance.jenkins.public_ip
 }

@@ -20,6 +20,20 @@ resource "aws_network_interface" "web-server-nic" {
 resource "aws_eip" "one" {
   vpc                       = true
   network_interface         = aws_network_interface.web-server-nic.id
-  associate_with_private_ip = "10.0.1.50"
+  associate_with_private_ip = var.net_private_ips[0]
+  depends_on                = [var.internet_gate]
+}
+
+resource "aws_eip" "two" {
+  vpc                       = true
+  network_interface         = aws_network_interface.web-server-nic.id
+  associate_with_private_ip = var.net_private_ips[1]
+  depends_on                = [var.internet_gate]
+}
+
+resource "aws_eip" "three" {
+  vpc                       = true
+  network_interface         = aws_network_interface.web-server-nic.id
+  associate_with_private_ip = var.net_private_ips[2]
   depends_on                = [var.internet_gate]
 }
