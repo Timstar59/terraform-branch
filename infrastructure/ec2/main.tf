@@ -45,7 +45,7 @@ resource "aws_instance" "jenkins" {
 resource "aws_db_instance" "DnD" {
   identifier             = "dnd"
   name                   = "DnD"
-  instance_class         = "db.t2.micro"
+  instance_class         = "db.t3.micro"
   allocated_storage      = 5
   engine                 = "mysql"
   engine_version         = "5.7"
