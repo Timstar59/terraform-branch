@@ -196,8 +196,8 @@ services:
       environment:
         - MYSQL_USER=root
         - MYSQL_PWD=${var.db_password}
-        - MYSQL_IP={{ db_ip }}
-        - MYSQL_DB=${module.subnets.NAT_publicIP}
+        - MYSQL_IP=${module.subnets.NAT_publicIP}
+        - MYSQL_DB=DnD
         - MYSQL_SK=sgjbsloiyblvbda
     
     service1:

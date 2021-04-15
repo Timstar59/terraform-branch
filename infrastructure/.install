@@ -1,2 +1,2 @@
 terraform apply -auto-approve
-ansible-playbook -i inventory Playbook.yml
+ansible-playbook -i inventory Playbook.yaml
