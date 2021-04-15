@@ -1,14 +1,11 @@
-FROM ubuntu:20.04
+FROM python:3.7.4
 
-RUN apt update -y && \
-    apt install -y python-pip3 python-dev
+WORKDIR /BackEnd
 
-COPY ./requirements.txt /backend/requirements.txt
-
-WORKDIR /backend
+COPY requirements.txt .
 
 RUN pip install -r requirements.txt
 
-COPY . /backend
+COPY . .
 
 ENTRYPOINT [ "python", "app.py" ]

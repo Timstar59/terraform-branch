@@ -1,14 +1,11 @@
-FROM ubuntu:20.04
-
-RUN apt update -y && \
-    apt install -y python-pip3 python-dev
-
-COPY ./requirements.txt /randapp2/requirements.txt
+FROM python:3.7.4
 
 WORKDIR /randapp2
 
+COPY requirements.txt .
+
 RUN pip install -r requirements.txt
 
-COPY . /randapp2
+COPY . .
 
 ENTRYPOINT [ "python", "app.py" ]
