@@ -1,7 +1,7 @@
 FROM ubuntu:20.04
 
-RUN apt-get update -y && \
-    apt-get install -y python-pip3 python-dev
+RUN apt update -y && \
+    apt install -y python-pip3 python-dev
 
 COPY ./requirements.txt /FrontEnd/requirements.txt
 
