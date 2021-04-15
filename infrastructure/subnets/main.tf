@@ -33,9 +33,19 @@ resource "aws_route_table_association" "a" {
   route_table_id = var.route_id
 }
 
-resource "aws_network_interface" "web-server-nic" {
+resource "aws_network_interface" "web-server-nic-1" {
   subnet_id       = aws_subnet.subnet-1.id
-  private_ips     = var.net_private_ips
+  private_ips     = ["10.0.1.50"]
+  security_groups = [var.sec_group_id]
+}
+resource "aws_network_interface" "web-server-nic-2" {
+  subnet_id       = aws_subnet.subnet-1.id
+  private_ips     = ["10.0.1.51"]
+  security_groups = [var.sec_group_id]
+}
+resource "aws_network_interface" "web-server-nic-3" {
+  subnet_id       = aws_subnet.subnet-1.id
+  private_ips     = ["10.0.1.52"]
   security_groups = [var.sec_group_id]
 }
 

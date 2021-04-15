@@ -3,7 +3,11 @@ resource "aws_instance" "docker_instance" {
   instance_type     = var.instance_type 
   availability_zone = var.av_zone 
   key_name          = var.key_name
-
+  
+  network_interface {
+    device_index         = 0
+    network_interface_id = var.net_id_prod
+  }
   tags = {
     Name = "deployment"
   }
@@ -13,7 +17,11 @@ resource "aws_instance" "docker_instance_test" {
   instance_type     = var.instance_type 
   availability_zone = var.av_zone 
   key_name          = var.key_name
-
+  
+  network_interface {
+    device_index         = 0
+    network_interface_id = var.net_id_test
+  }
   tags = {
     Name = "test"
   }
@@ -26,7 +34,7 @@ resource "aws_instance" "jenkins" {
 
   network_interface {
     device_index         = 0
-    network_interface_id = var.net_id
+    network_interface_id = var.net_id_jenk
   }
 
   tags = {

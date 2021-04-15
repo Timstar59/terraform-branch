@@ -19,12 +19,14 @@ module "subnets" {
 
 module "ec2" {
     source          = "./ec2"
-
-    net_id          = module.subnets.net_id
+    net_id_prod     = module.subnets.net_id_prod
+    net_id_test     = module.subnets.net_id_test
+    net_id_jenk     = module.subnets.net_id_jenk
     ami_id          = "ami-096cb92bb3580c759"
     instance_type   = "t2.medium"
     av_zone         = "eu-west-2a"
     key_name        = "Terraform-Resource"
+    sec_group_id    = module.vpc.sec_group_id
 }
 
 resource "local_file" "tf_ansible_inventory" {
