@@ -24,7 +24,7 @@ pipeline{
                             steps{
                                     sh '''case "$BRANCH_NAME" in
                                     #case 1
-                                    "main") image="18.132.197.224:5000/rand1:build-$BUILD_NUMBER"
+                                    "master") image="18.132.197.224:5000/rand1:build-$BUILD_NUMBER"
                                             docker build -t $image /var/lib/jenkins/workspace/DnD_master/randapp1
                                             docker push $image
                                             ssh 18.132.38.132  << EOF

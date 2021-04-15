@@ -90,7 +90,7 @@ resource "local_file" "tf_Jenkinsfile" {
                                 steps{
                                         sh '''case "$BRANCH_NAME" in
                                         #case 1
-                                        "main") image="${module.ec2.jenk_ip}:5000/rand1:build-$BUILD_NUMBER"
+                                        "master") image="${module.ec2.jenk_ip}:5000/rand1:build-$BUILD_NUMBER"
                                                 docker build -t $image /var/lib/jenkins/workspace/DnD_master/randapp1
                                                 docker push $image
                                                 ssh ${module.ec2.prod_ip}  << EOF
