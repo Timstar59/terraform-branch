@@ -67,7 +67,7 @@
       mode: "0700"
   - name: insecure registry copy file
     copy:
-      src: /home/ubuntu/terraform-branch/infrastructure/daemon.json
+      src: ~/terraform-branch/infrastructure/daemon.json
       dest: /etc/docker/daemon.json
       mode: u=rw,g=,o=
   - name: Add jenkins user to docker group
