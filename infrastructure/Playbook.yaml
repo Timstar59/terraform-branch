@@ -113,7 +113,7 @@
         mode: "0700"
     - name: insecure registry copy file
       copy:
-        src: /home/qa-admin/Ansible/daemon.json
+        src: ~/Ansible/daemon.json
         dest: /etc/docker/daemon.json
         mode: u=rw,g=,o=
     - name: ssh folder
@@ -150,7 +150,7 @@
   tasks:
     - name: Git clone project
       git:
-        repo: 'https://github.com/PCMBarber/PiersProject.git'
+        repo: 'https://github.com/PCMBarber/terraform-branch.git'
         dest: /home/jenkins/repo
     - name: Change branch
         chdir: /home/jenkins/repo
@@ -176,7 +176,7 @@
   tasks:
     - name: Git clone project
       git:
-        repo: 'https://github.com/PCMBarber/PiersProject.git'
+        repo: 'https://github.com/PCMBarber/terraform-branch.git'
         dest: /home/jenkins/repo
     - name: Init a new swarm
       docker_swarm:
