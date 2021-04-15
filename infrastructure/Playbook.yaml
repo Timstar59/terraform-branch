@@ -181,9 +181,6 @@
     - name: Build docker images
       docker_compose:
         project_src: /home/jenkins/repo
-    - name: Change branch
-      shell: git checkout development
-        chdir: /home/jenkins/repo
         build: yes
       remote_user: jenkins
     - name: Deploy stack from a compose file
