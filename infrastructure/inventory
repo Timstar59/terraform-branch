@@ -1,14 +1,14 @@
 [jenkins]
 
-3.9.132.21 ansible_ssh_private_key_file=~/.ssh/Terraform-Resource.pem
+35.177.5.110 ansible_ssh_private_key_file=~/.ssh/Terraform-Resource.pem
 
 [swarmmaster]
 
-18.133.155.57 ansible_ssh_private_key_file=~/.ssh/Terraform-Resource.pem
+35.176.149.117 ansible_ssh_private_key_file=~/.ssh/Terraform-Resource.pem
 
 [swarmtest]
 
-35.177.148.90 ansible_ssh_private_key_file=~/.ssh/Terraform-Resource.pem
+18.134.229.66 ansible_ssh_private_key_file=~/.ssh/Terraform-Resource.pem
 
 [swarmmaster:vars]
 
