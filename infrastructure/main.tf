@@ -26,7 +26,9 @@ module "ec2" {
     instance_type   = "t2.medium"
     av_zone         = "eu-west-2a"
     key_name        = "Terraform-Resource"
-    sec_group_id    = module.vpc.sec_group_id
+    sec_group_id    = module.vpc.db_sec_group_id
+    subnet_group_name = module.subnets.db_subnet_group
+    db_password     = var.db_password
 }
 
 resource "local_file" "tf_ansible_inventory" {
@@ -49,11 +51,15 @@ resource "local_file" "tf_ansible_inventory" {
 
     ansible_ssh_common_args='-o StrictHostKeyChecking=no'
 
+    db_ip=${module.subnets.NAT_publicIP}
+
     [swarmtest:vars]
 
     ansible_user=ubuntu
 
     ansible_ssh_common_args='-o StrictHostKeyChecking=no'
+
+    db_ip=${module.subnets.NAT_publicIP}
 
     [jenkins:vars]
 
@@ -162,4 +168,58 @@ resource "local_file" "tf_Jenkinsfile" {
         }
     DOC
   filename = "../Jenkinsfile"
+}
+
+resource "local_file" "tf_DockerCompose" {
+  content = <<-DOC
+version: '3.7'
+services:
+    nginx:
+      image: nginx:latest
+      ports:
+        - target: 80
+          published: 80
+          protocol: tcp
+      volumes:
+        - type: bind
+          source: ./nginx/nginx.conf
+          target: /etc/nginx/nginx.conf
+      depends_on:
+        - frontend
+
+    frontend:
+      image: jenkins:5000/frontend:build-0
+      build: ./frontend
+      ports:
+        - target: 5000
+          published: 5000
+      environment:
+        - MYSQL_USER=root
+        - MYSQL_PWD=${var.db_password}
+        - MYSQL_IP={{ db_ip }}
+        - MYSQL_DB=${module.subnets.NAT_publicIP}
+        - MYSQL_SK=sgjbsloiyblvbda
+    
+    service1:
+      image: jenkins:5000/rand1:build-0
+      build: ./randapp1
+      ports:
+        - target: 5001
+          published: 5001
+      
+    service2:
+      image: jenkins:5000/rand2:build-0
+      build: ./randapp2
+      ports:
+        - target: 5002
+          published: 5002
+
+    backend:
+      image: jenkins:5000/backend:build-0
+      build: ./backend
+      ports:
+        - target: 5003
+          published: 5003
+    DOC
+  filename = "../docker-compose.yaml"
 }

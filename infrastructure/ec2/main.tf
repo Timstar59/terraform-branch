@@ -41,3 +41,19 @@ resource "aws_instance" "jenkins" {
     Name = "jenkins"
   }
 }
+
+resource "aws_db_instance" "DnD" {
+  identifier             = "dnd"
+  name                   = "DnD"
+  instance_class         = "db.t2.micro"
+  allocated_storage      = 5
+  engine                 = "mysql"
+  engine_version         = "5.7"
+  username               = "root"
+  password               = var.db_password
+  db_subnet_group_name   = var.subnet_group_name
+  vpc_security_group_ids = [var.sec_group_id]
+  parameter_group_name   = "default.mysql5.7"
+  publicly_accessible    = false
+  skip_final_snapshot    = true
+}
