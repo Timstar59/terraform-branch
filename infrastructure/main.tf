@@ -77,89 +77,99 @@ resource "local_file" "tf_Jenkinsfile" {
                 stages{
                         stage('--Front End--'){
                                 steps{
-                                        sh '''case "$BRANCH_NAME" in
-                                        #case 1
-                                        "main") image="${module.ec2.jenk_ip}:5000/frontend:build-$BUILD_NUMBER"
+                                        sh '''case $BRANCH_NAME in
+                                        main) 
+                                                image="${module.ec2.jenk_ip}:5000/frontend:build-$BUILD_NUMBER"
                                                 docker build -t $image /var/lib/jenkins/workspace/DnD_master/frontend
                                                 docker push $image
                                                 ssh ${module.ec2.prod_ip}  << EOF
-                                                docker service update --image $image DnDCharacterGen_frontend ;;
-                                        #case 2
-                                        "development") image="${module.ec2.jenk_ip}:5000/frontend-dev:build-$BUILD_NUMBER"
+                                                docker service update --image $image DnDCharacterGen_frontend
+                                                ;;
+                                        development) 
+                                                image="${module.ec2.jenk_ip}:5000/frontend-dev:build-$BUILD_NUMBER"
                                                 docker build -t $image /var/lib/jenkins/workspace/DnD_master/frontend
                                                 docker push $image
                                                 ssh ${module.ec2.test_ip}  << EOF
-                                                docker service update --image $image DnDCharacterGen_frontend ;;
+                                                docker service update --image $image DnDCharacterGen_frontend
+                                                ;;
                                         esac
                                         '''
                                 }
                         }  
                         stage('--Service1--'){
                                 steps{
-                                        sh '''case "$BRANCH_NAME" in
-                                        #case 1
-                                        "master") image="${module.ec2.jenk_ip}:5000/rand1:build-$BUILD_NUMBER"
+                                        sh '''case $BRANCH_NAME in
+                                        main) 
+                                                image="${module.ec2.jenk_ip}:5000/rand1:build-$BUILD_NUMBER"
                                                 docker build -t $image /var/lib/jenkins/workspace/DnD_master/randapp1
                                                 docker push $image
                                                 ssh ${module.ec2.prod_ip}  << EOF
-                                                docker service update --image $image DnDCharacterGen_service1 ;;
-                                        #case 2
-                                        "development") image="${module.ec2.jenk_ip}:5000/rand1-dev:build-$BUILD_NUMBER"
+                                                docker service update --image $image DnDCharacterGen_service1
+                                                ;;
+                                        development) 
+                                                image="${module.ec2.jenk_ip}:5000/rand1-dev:build-$BUILD_NUMBER"
                                                 docker build -t $image /var/lib/jenkins/workspace/DnD_master/randapp1
                                                 docker push $image
                                                 ssh ${module.ec2.test_ip}  << EOF
-                                                docker service update --image $image DnDCharacterGen_service1 ;;
+                                                docker service update --image $image DnDCharacterGen_service1
+                                                ;;
                                         esac
                                         '''
                                 }
                         }
                         stage('--Service2--'){
                                 steps{
-                                        sh '''case "$BRANCH_NAME" in
-                                        #case 1
-                                        "main") image="${module.ec2.jenk_ip}:5000/rand2:build-$BUILD_NUMBER"
+                                        sh '''case $BRANCH_NAME in
+                                        main) 
+                                                image="${module.ec2.jenk_ip}:5000/rand2:build-$BUILD_NUMBER"
                                                 docker build -t $image /var/lib/jenkins/workspace/DnD_master/randapp2
                                                 docker push $image
                                                 ssh ${module.ec2.prod_ip}  << EOF
-                                                docker service update --image $image DnDCharacterGen_service2 ;;
-                                        #case 2
-                                        "development") image="${module.ec2.jenk_ip}:5000/rand2-dev:build-$BUILD_NUMBER"
+                                                docker service update --image $image DnDCharacterGen_service2
+                                                ;;
+                                        development) 
+                                                image="${module.ec2.jenk_ip}:5000/rand2-dev:build-$BUILD_NUMBER"
                                                 docker build -t $image /var/lib/jenkins/workspace/DnD_master/randapp2
                                                 docker push $image
                                                 ssh ${module.ec2.test_ip}  << EOF
-                                                docker service update --image $image DnDCharacterGen_service2 ;;
+                                                docker service update --image $image DnDCharacterGen_service2
+                                                ;;
                                         esac
                                         '''
                                 }
                         }
                         stage('--Back End--'){
                                 steps{
-                                        sh '''case "$BRANCH_NAME" in
-                                        #case 1
-                                        "main") image="${module.ec2.jenk_ip}:5000/backend:build-$BUILD_NUMBER"
+                                        sh '''case $BRANCH_NAME in
+                                        main) 
+                                                image="${module.ec2.jenk_ip}:5000/backend:build-$BUILD_NUMBER"
                                                 docker build -t $image /var/lib/jenkins/workspace/DnD_master/backend
                                                 docker push $image
                                                 ssh ${module.ec2.prod_ip}  << EOF
-                                                docker service update --image $image DnDCharacterGen_backend ;;
-                                        #case 2
-                                        "development") image="${module.ec2.jenk_ip}:5000/backend-dev:build-$BUILD_NUMBER"
+                                                docker service update --image $image DnDCharacterGen_backend
+                                                ;;
+                                        development) 
+                                                image="${module.ec2.jenk_ip}:5000/backend-dev:build-$BUILD_NUMBER"
                                                 docker build -t $image /var/lib/jenkins/workspace/DnD_master/backend
                                                 docker push $image
                                                 ssh ${module.ec2.test_ip}  << EOF
-                                                docker service update --image $image DnDCharacterGen_backend ;;
+                                                docker service update --image $image DnDCharacterGen_backend
+                                                ;;
                                         esac
                                         '''
                                 }
                         }
                         stage('--Clean up--'){
                                 steps{
-                                        sh '''case "$BRANCH_NAME" in
-                                        #case 1
-                                        "main") ssh ${module.ec2.prod_ip}  << EOF
-                                                docker system prune ;;
-                                        #case 2
-                                        "development") ssh ${module.ec2.test_ip}  << EOF
-                                                docker system prune ;;
+                                        sh '''case $BRANCH_NAME in
+                                        main) 
+                                                ssh ${module.ec2.prod_ip}  << EOF
+                                                docker system prune
+                                                ;;
+                                        development) 
+                                                ssh ${module.ec2.test_ip}  << EOF
+                                                docker system prune
+                                                ;;
                                         esac
                                         '''
                                 }
