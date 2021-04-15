@@ -1,0 +1,5 @@
+/tests/
+.gitignore
+/__pycache__/
+.dockerignore
+/.git/

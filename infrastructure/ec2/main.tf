@@ -3,14 +3,19 @@ resource "aws_instance" "docker_instance" {
   instance_type     = var.instance_type 
   availability_zone = var.av_zone 
   key_name          = var.key_name
-  count             = 2
-  network_interface {
-    device_index         = 0
-    network_interface_id = var.net_id
-  }
 
   tags = {
-    Name = each.key
+    Name = "deployment"
+  }
+}
+resource "aws_instance" "docker_instance_test" {
+  ami               = var.ami_id 
+  instance_type     = var.instance_type 
+  availability_zone = var.av_zone 
+  key_name          = var.key_name
+
+  tags = {
+    Name = "test"
   }
 }
 resource "aws_instance" "jenkins" {

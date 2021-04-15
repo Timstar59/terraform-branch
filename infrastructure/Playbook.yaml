@@ -144,13 +144,39 @@
         ports:
           - "5000:5000"
 
-- name: Docker Swarm deploy
+- name: Docker Swarm Deploy Production
   hosts: swarmmaster
   become: true
   tasks:
     - name: Git clone project
       git:
-        repo: 'https://github.com/PCMBarber/BAE-sfia2-brief.git'
+        repo: 'https://github.com/PCMBarber/PiersProject.git'
+        dest: /home/jenkins/repo
+    - name: Change branch
+        chdir: /home/jenkins/repo
+        shell: git checkout development
+    - name: Init a new swarm
+      docker_swarm:
+        state: present
+    - name: Build docker images
+      docker_compose:
+        project_src: /home/jenkins/repo
+        build: yes
+      remote_user: jenkins
+    - name: Deploy stack from a compose file
+      docker_stack:
+        state: present
+        name: project
+        compose:
+          - /home/jenkins/repo/docker-compose.yaml
+
+- name: Docker Swarm Deploy Development
+  hosts: swarmtest
+  become: true
+  tasks:
+    - name: Git clone project
+      git:
+        repo: 'https://github.com/PCMBarber/PiersProject.git'
         dest: /home/jenkins/repo
     - name: Init a new swarm
       docker_swarm:

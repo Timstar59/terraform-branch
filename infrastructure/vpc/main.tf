@@ -31,15 +31,6 @@ resource "aws_security_group" "allow_web" {
   name        = "allow_web_traffic"
   description = "Allow Web inbound traffic"
   vpc_id      = aws_vpc.prod-vpc.id
-
-  ingress {
-    description = "HTTPS"
-    from_port   = 443
-    to_port     = 443
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
   ingress {
     description = "HTTP"
     from_port   = 80
@@ -66,5 +57,25 @@ resource "aws_security_group" "allow_web" {
   tags = {
     Name = "allow_web"
   }
+}
 
+resource "aws_security_group" "MySQL-SG" {
+  description = "MySQL Access only from the public Instances!"
+  name = "mysql-sg"
+  vpc_id = aws_vpc.prod-vpc.id
+  ingress {
+    description = "MySQL Access"
+    from_port   = 3306
+    to_port     = 3306
+    protocol    = "tcp"
+    security_groups = [aws_security_group.allow_web.id]
+  }
+
+  egress {
+    description = "output from MySQL"
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
 }
