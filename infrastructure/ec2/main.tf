@@ -42,6 +42,17 @@ resource "aws_instance" "jenkins" {
   }
 }
 
+resource "aws_instance" "bastion" {
+  ami               = var.ami_id 
+  instance_type     = var.instance_type 
+  availability_zone = var.av_zone 
+  key_name          = var.key_name
+
+  tags = {
+    Name = "bastion"
+  }
+}
+
 resource "aws_db_instance" "DnD" {
   identifier             = "dnd"
   name                   = "DnD"

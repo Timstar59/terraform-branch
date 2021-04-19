@@ -22,7 +22,7 @@ services:
       environment:
         - MYSQL_USER=root
         - MYSQL_PWD=WhyOhWhyDelilah
-        - MYSQL_IP=18.168.27.123
+        - MYSQL_IP=3.10.182.222
         - MYSQL_DB=DnD
         - MYSQL_SK=sgjbsloiyblvbda
     

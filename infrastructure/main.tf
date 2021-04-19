@@ -13,7 +13,6 @@ module "subnets" {
     vpc_id          = module.vpc.vpc_id
     route_id        = module.vpc.route_id
     sec_group_id    = module.vpc.sec_group_id
-    net_private_ips = ["10.0.1.50", "10.0.1.51", "10.0.1.52"]
     internet_gate   = module.vpc.internet_gate
 }
 
