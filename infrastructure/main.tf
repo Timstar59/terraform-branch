@@ -157,7 +157,7 @@ services:
           published: 5000
       environment:
         - MYSQL_USER=root
-        - MYSQL_PWD=${var.db_password}
+        - MYSQL_PWD=$${DB_PWD}
         - MYSQL_IP=${module.subnets.NAT_publicIP}
         - MYSQL_DB=DnD
         - MYSQL_SK=sgjbsloiyblvbda

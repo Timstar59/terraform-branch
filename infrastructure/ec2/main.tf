@@ -3,7 +3,14 @@ resource "aws_instance" "docker_instance" {
   instance_type     = var.instance_type 
   availability_zone = var.av_zone 
   key_name          = var.key_name
-  
+  user_data = <<-EOF
+                #!/bin/bash
+                echo "export DB_PWD=${var.db_password}">>~/.bashrc
+                echo "DB_PWD=${var.db_password}">>~/.profile
+                echo "DB_PWD=${var.db_password}">>/etc/environment
+                source ~/.bashrc
+                source ~/.profile
+                EOF
   network_interface {
     device_index         = 0
     network_interface_id = var.net_id_prod
@@ -17,7 +24,14 @@ resource "aws_instance" "docker_instance_test" {
   instance_type     = var.instance_type 
   availability_zone = var.av_zone 
   key_name          = var.key_name
-  
+  user_data = <<-EOF
+                #!/bin/bash
+                echo "export DB_PWD=${var.db_password}">>~/.bashrc
+                echo "DB_PWD=${var.db_password}">>~/.profile
+                echo "DB_PWD=${var.db_password}">>/etc/environment
+                source ~/.bashrc
+                source ~/.profile
+                EOF
   network_interface {
     device_index         = 0
     network_interface_id = var.net_id_test
