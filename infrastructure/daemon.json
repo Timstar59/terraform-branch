@@ -1,4 +1,4 @@
 
-(
-        "insecure-regigistries":["localhost:5000"]
-)
+{
+        "insecure-registries":["3.8.6.197:5000"]
+}

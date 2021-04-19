@@ -35,7 +35,6 @@ resource "aws_db_subnet_group" "private" {
   }
 }
 
-
 resource "aws_route_table_association" "a" {
   subnet_id      = aws_subnet.subnet-1.id
   route_table_id = var.route_id
