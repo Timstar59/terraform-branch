@@ -24,7 +24,7 @@ module "ec2" {
     ami_id          = "ami-096cb92bb3580c759"
     instance_type   = "t2.medium"
     av_zone         = "eu-west-2a"
-    key_name        = "Terraform-Resource"
+    key_name        = "terraforminit"
     sec_group_id    = module.vpc.db_sec_group_id
     subnet_group_name = module.subnets.db_subnet_group
     db_password     = var.db_password
