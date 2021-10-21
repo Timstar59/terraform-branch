@@ -34,15 +34,15 @@ resource "local_file" "tf_ansible_inventory" {
   content = <<-DOC
     [jenkins]
 
-    ${module.ec2.jenk_ip} ansible_ssh_private_key_file=~/.ssh/Terraform-Resource.pem
+    ${module.ec2.jenk_ip} ansible_ssh_private_key_file=~/.ssh/terraforminit.pem
 
     [swarmmaster]
 
-    ${module.ec2.prod_ip} ansible_ssh_private_key_file=~/.ssh/Terraform-Resource.pem
+    ${module.ec2.prod_ip} ansible_ssh_private_key_file=~/.ssh/terraforminit.pem
 
     [swarmtest]
 
-    ${module.ec2.test_ip} ansible_ssh_private_key_file=~/.ssh/Terraform-Resource.pem
+    ${module.ec2.test_ip} ansible_ssh_private_key_file=~/.ssh/terraforminit.pem
 
     [swarmmaster:vars]
 
